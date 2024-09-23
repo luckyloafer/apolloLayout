@@ -1,0 +1,91 @@
+.layout-topbar{
+    display: flex;
+    margin-bottom: 2rem;
+    justify-content: space-between;
+    align-items: center;
+    color: gray;
+    .topbar-start{
+        display: flex;
+        align-items: center;
+        gap: 25px;
+        width: fit-content;
+        .topbar-menubutton{
+            border: none;
+            background-color: transparent;
+            padding: 10px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color 0.5s ease;
+        }
+        .topbar-menubutton:hover{
+            background-color: #6366f1;
+            color: white;
+            padding: 10px;
+            border-radius: 50%;
+        }
+        span{
+            font-weight: bold;
+        }
+    }
+    .topbar-end{
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        span{
+            display: flex;
+            gap: 7px;
+            padding: 9px 11px 9px 11px;
+            border: 1px solid rgb(226, 226, 226);
+            border-radius: 50px;
+            background-color: white;
+            align-items: center;
+            transition: background-color 0.9s ease;
+            input{
+                border: none;
+                transition: background-color 0.9s ease;
+            }
+
+            input:focus{
+                outline: none;
+            }
+        }
+        span:hover{
+            border: 1px solid #6366f1;
+            
+        }
+        .profile-cont{
+
+            border-radius: 50%;
+            width: 26px;
+            height: 26px;
+            overflow: hidden;
+            align-items: center;
+            margin-left: 10px;
+            cursor: pointer;
+            img{
+                width: 30px;
+            }
+        }
+        
+        .setting-icon{
+            padding: 10px;
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            border-radius: 50%;
+            i{
+                cursor: pointer;
+                font-size: 15px;
+                //margin-left: 15px;
+            }
+            
+        }
+        .setting-icon:hover{
+            background-color: rgb(231, 228, 228);
+        }
+        
+        
+    }
+}

@@ -1,0 +1,190 @@
+<div class="layout-container">
+  <app-sidebar *ngIf="openSidebar === true" [@slideInOut]></app-sidebar>
+  
+  <div class="layout-content-wrapper" [ngClass]="{ 'expanded': openSidebar }">
+    <app-topbar (alterSidebar)="alterSidebar()"></app-topbar>
+
+    <div class="layout-content" >
+
+      <div class="grid">
+         <div class="col-12 md:col-6 xl:col-3">
+          <div class="card">
+            <span>Sales</span>
+            <div class="cardDetailsCont">
+               <div class="cardDetails">
+                <span>120</span>
+                <div class="discount-cont">
+                  <span>+12%</span>
+                  <span><i class="positive-arrow pi pi-arrow-up"></i></span>
+                </div>
+                
+               </div>
+               <div id="linechart1" class="linechart" style="width: 100%;height: 100%;display: flex;justify-content: center;"></div>
+            </div>
+            </div>
+          </div>
+         
+         <div class="col-12 md:col-6 xl:col-3">
+          <div class="card">
+            <span>Revenue</span>
+            <div class="cardDetailsCont">
+               <div class="cardDetails">
+                <span>$4500</span>
+                <div class="discount-cont">
+                  <span>+20%</span>
+                  <span ><i class="positive-arrow pi pi-arrow-up"></i></span>
+                </div>
+               </div>
+               <!-- <div class="linechart" style="width: 100%;height: 100%;"></div> -->
+               <div id="linechart2" class="linechart" style="width: 100%;height: 100%;display: flex;justify-content: center;"></div>
+            </div>
+          </div>
+         </div>
+         <div class="col-12 md:col-6 xl:col-3">
+          <div class="card">
+            <span>Visitors</span>
+            <div class="cardDetailsCont">
+               <div class="cardDetails">
+                <span>360</span>
+                <div class="discount-cont">
+                  <span style="color: red;">+24%</span>
+                  <span ><i class="negative-arrow pi pi-arrow-down"></i></span>
+                </div>
+               </div>
+               <div id="linechart3" class="linechart" style="width: 100%;height: 100%;display: flex;justify-content: center;"></div>
+            </div>
+          </div>
+         </div>
+         <div class="col-12 md:col-6 xl:col-3">
+          <div class="card">
+            <span>Stock</span>
+            <div class="cardDetailsCont">
+               <div class="cardDetails">
+                <span>164</span>
+                <div class="discount-cont">
+                  <span>+30%</span>
+                  <span class="pi pi-arrow-up"></span>
+                </div>
+               </div>
+               <!-- <div style="width: 50%;height: 63px;background-color: rgb(211, 229, 248);"></div> -->
+                <div class="circular-progress" >
+                  <circle-progress
+               [percent]="90"
+               [radius]="40"
+               [outerStrokeWidth]="16"
+               [innerStrokeWidth]="8"
+               [outerStrokeColor]="'#6366f1'"
+               [animation]="true"
+               [animationDuration]="500"
+               [showSubtitle]="false"
+               [showInnerStroke]="false"
+               [outerStrokeWidth]="2"
+             ></circle-progress>
+                </div>
+               
+            </div>
+          </div>
+         </div>
+         <div class="col-12  xl:col-9">
+          <div class="card" style="height: 360px">
+            <span class="TopProductsHeader">Revenue Overview</span>
+            <div id="barchart" style="width: 100%;height: 100%;"></div>
+            
+          </div>
+         </div>
+         <div class="col-12  xl:col-3">
+          <div class="card" style="height: 360px;">
+            <span class="TopProductsHeader">Sales by Category</span>
+            <div id="piechart" style="width: 100%;height: 100%">
+            </div>
+            <!-- <div id="barchart" style="width: 100%;height: 100%;"></div> -->
+          </div>
+         </div>
+         <div class="col-12  lg:col-8">
+          <div class="card" style="height: 100%;">
+            <div class="recentSales-header">
+              <span class="TopProductsHeader">Recent Sales</span>
+              <div class="header-right">
+                <span >  
+                  <i class="pi pi-search " style="font-size: 14px"></i>
+                  <input [(ngModel)]="searchPaginatedProductName" 
+                  (ngModelChange)="onSearchProductChange($event)"
+                  type="search" placeholder="Search">
+               </span>
+               <div class="upload">
+                <i class="pi pi-upload" ></i>
+               </div>
+              </div>
+            </div>
+           <div style="overflow: auto;">
+            <table class="product-table">
+              <colgroup>
+                <col style="width: 25%;">
+                <col style="width: 20%;">
+                <col style="width: 20%;">
+                <col style="width: 20%;">
+                <col style="width: 15%;">
+            </colgroup>
+              <thead>
+                  <tr>
+                      <th>Name  <i class="sort pi pi-sort-alt"></i></th>
+                      <th>Category  <i class="sort pi pi-sort-alt"></i></th>
+                      <th>Price  <i class="sort pi pi-sort-alt"></i></th>
+                      <th>Status  <i class="sort pi pi-sort-alt"></i></th>
+                      <th></th>
+                  </tr>
+              </thead>
+              <tbody>
+                 
+                  <tr *ngFor="let product of pagedProducts">
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.category }}</td>
+                    <td>{{ product.price }}</td>
+                    <td>
+                      <span [ngClass]="{'outofstock': product.status === 'OUTOFSTOCK', 
+                                        'lowstock': product.status === 'LOWSTOCK', 
+                                        'instock': product.status === 'INSTOCK'}">
+                        {{ product.status }}
+                      </span>
+                    </td>
+                    <td>
+                      <button type="button" class="view-btn">
+                        <i class="pi pi-search" style="font-size: 0.86rem;"></i>
+                      </button>
+                    </td>
+                  </tr>
+              </tbody>
+          </table>
+        </div>
+
+          <p-paginator [rows]="5" [totalRecords]="totalRecords" (onPageChange)="paginate($event)">
+          </p-paginator>
+          </div>
+         </div>
+
+         <div class="col-12  lg:col-4">
+          <div class="card" style="height:100%;">
+            <div class="TopProductsHeader" >Top Products</div>
+            <ul class="topProductsListCont">
+              <li *ngFor="let product of topProducts">
+                <div>
+                  <img class="productImage" [src]="product.image" [alt]="product.name">
+                  <div>
+                    <span class="productName">{{ product.name }}</span>
+                    <span style="display: flex; gap: 0.5rem;justify-content: space-between;">
+                      <ng-container *ngFor="let star of [].constructor(5); let i = index">
+                        <i [ngClass]="i < product.rating ? 'fillstar pi pi-star-fill' : 'pi pi-star'"></i>
+                      </ng-container>
+                    </span>
+                  </div>
+                </div>
+                <span class="price">{{ product.price }}</span>
+              </li>
+             
+            </ul>
+          </div>
+         </div>
+      </div>
+    </div>
+  </div>
+</div>
